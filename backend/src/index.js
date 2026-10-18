@@ -5,6 +5,7 @@ import { connectDB } from "./config/db.js";
 import usersRouter from "./routes/users.js";
 import listingsRouter from "./routes/listings.js";
 import interactionsRouter from "./routes/interactions.js";
+import recommendationsRouter from "./routes/recommendations.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/users", usersRouter);
 app.use("/api/listings", listingsRouter);
 app.use("/api/interactions", interactionsRouter);
+app.use("/api/recommendations", recommendationsRouter);
 
 const PORT = process.env.PORT || 5000;
 
