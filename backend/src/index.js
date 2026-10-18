@@ -7,6 +7,8 @@ import listingsRouter from "./routes/listings.js";
 import interactionsRouter from "./routes/interactions.js";
 import recommendationsRouter from "./routes/recommendations.js";
 import imagesRouter from "./routes/images.js";
+import { notFound } from "./middleware/notFound.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
 
@@ -20,6 +22,9 @@ app.use("/api/listings", listingsRouter);
 app.use("/api/interactions", interactionsRouter);
 app.use("/api/recommendations", recommendationsRouter);
 app.use("/api/images", imagesRouter);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
