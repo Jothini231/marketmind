@@ -47,7 +47,6 @@ export default function Feed({ user, onLogout }) {
               key={listing._id}
               listing={listing}
               userId={user._id}
-              onInteraction={fetchFeed}
             />
           ))}
         </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getListingImage } from "../services/api";
 import ActionButtons from "./ActionButtons";
 
-export default function ListingCard({ listing, userId, onInteraction }) {
+export default function ListingCard({ listing, userId }) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
@@ -57,7 +57,6 @@ export default function ListingCard({ listing, userId, onInteraction }) {
         <ActionButtons
           userId={userId}
           listingId={listing._id}
-          onInteraction={onInteraction}
         />
       </div>
     </div>

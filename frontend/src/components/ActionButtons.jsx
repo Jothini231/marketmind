@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { FiEye, FiBookmark, FiPhone } from "react-icons/fi";
+import { FiEye, FiBookmark, FiPhone, FiCheck } from "react-icons/fi";
 import { createInteraction } from "../services/api";
 
-export default function ActionButtons({ userId, listingId, onInteraction }) {
+export default function ActionButtons({ userId, listingId }) {
   const [clicked, setClicked] = useState({});
 
   const handleAction = async (type) => {
     try {
       await createInteraction({ userId, listingId, type });
       setClicked((prev) => ({ ...prev, [type]: true }));
-      if (onInteraction) {
-        onInteraction();
-      }
     } catch (err) {
       console.error("Interaction failed:", err);
     }
@@ -23,19 +20,22 @@ export default function ActionButtons({ userId, listingId, onInteraction }) {
         className={`action-btn view ${clicked.VIEW ? "active" : ""}`}
         onClick={() => handleAction("VIEW")}
       >
-        <FiEye className="btn-icon" /> View
+        {clicked.VIEW ? <FiCheck className="btn-icon" /> : <FiEye className="btn-icon" />}
+        {clicked.VIEW ? "Viewed" : "View"}
       </button>
       <button
         className={`action-btn save ${clicked.SAVE ? "active" : ""}`}
         onClick={() => handleAction("SAVE")}
       >
-        <FiBookmark className="btn-icon" /> Save
+        {clicked.SAVE ? <FiCheck className="btn-icon" /> : <FiBookmark className="btn-icon" />}
+        {clicked.SAVE ? "Saved" : "Save"}
       </button>
       <button
         className={`action-btn contact ${clicked.CONTACT ? "active" : ""}`}
         onClick={() => handleAction("CONTACT")}
       >
-        <FiPhone className="btn-icon" /> Contact
+        {clicked.CONTACT ? <FiCheck className="btn-icon" /> : <FiPhone className="btn-icon" />}
+        {clicked.CONTACT ? "Contacted" : "Contact"}
       </button>
     </div>
   );
