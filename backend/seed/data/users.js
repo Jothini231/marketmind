@@ -1,6 +1,6 @@
 const users = [
-  { _id: 1, name: "Kasun" },
-  { _id: 2, name: "Nethmi" },
+  { _id: 1, name: "Alex" },
+  { _id: 2, name: "Sarah" },
 ];
 
 export default users;

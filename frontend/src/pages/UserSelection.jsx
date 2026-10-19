@@ -3,8 +3,8 @@ import { getUsers } from "../services/api";
 import { setStoredUser } from "../utils/storage";
 
 const DEFAULT_USERS = [
-  { _id: 1, name: "Kasun" },
-  { _id: 2, name: "Nethmi" },
+  { _id: 1, name: "Alex" },
+  { _id: 2, name: "Sarah" },
 ];
 
 export default function UserSelection({ onSelectUser }) {
