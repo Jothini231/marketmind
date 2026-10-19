@@ -42,7 +42,7 @@ const listings = [
     location: "Gampaha",
     price: 950000,
     attributes: { make: "Yamaha", model: "FZ", year: 2022 },
-    imageKey: null,
+    imageKey: "listings/L002.jpg",
   },
   {
     _id: "L006",
@@ -69,7 +69,7 @@ const listings = [
     location: "Colombo",
     price: 18000000,
     attributes: { propertyType: "apartment", bedrooms: 1, landSize: null },
-    imageKey: "listings/L002.jpg",
+    imageKey: null,
   },
   {
     _id: "L009",
@@ -87,7 +87,7 @@ const listings = [
     location: "Gampaha",
     price: 38000000,
     attributes: { propertyType: "house", bedrooms: 4, landSize: "12 perches" },
-    imageKey: null,
+    imageKey: "listings/L005.jpg",
   },
   {
     _id: "L011",
@@ -132,7 +132,7 @@ const listings = [
     location: "Colombo",
     price: 8100000,
     attributes: { make: "Toyota", model: "Aqua", year: 2023 },
-    imageKey: null,
+    imageKey: "listings/L003.jpg",
   },
   {
     _id: "L016",
@@ -150,7 +150,7 @@ const listings = [
     location: "Kandy",
     price: 14200000,
     attributes: { make: "Hyundai", model: "Tucson", year: 2021 },
-    imageKey: "listings/L005.jpg",
+    imageKey: null,
   },
   {
     _id: "L018",
@@ -222,7 +222,7 @@ const listings = [
     location: "Colombo",
     price: 6100000,
     attributes: { make: "Suzuki", model: "Swift", year: 2022 },
-    imageKey: "listings/L003.jpg",
+    imageKey: null,
   },
   {
     _id: "L026",

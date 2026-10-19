@@ -2,15 +2,20 @@ import { useState, useEffect } from "react";
 import { getUsers } from "../services/api";
 import { setStoredUser } from "../utils/storage";
 
+const DEFAULT_USERS = [
+  { _id: 1, name: "Kasun" },
+  { _id: 2, name: "Nethmi" },
+];
+
 export default function UserSelection({ onSelectUser }) {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState(DEFAULT_USERS);
 
   useEffect(() => {
     getUsers()
-      .then(setUsers)
-      .catch((err) => console.error("Failed to fetch users:", err))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (data && data.length > 0) setUsers(data);
+      })
+      .catch((err) => console.error("Failed to fetch users:", err));
   }, []);
 
   const handleSelect = (user) => {
@@ -18,13 +23,9 @@ export default function UserSelection({ onSelectUser }) {
     onSelectUser(user);
   };
 
-  if (loading) {
-    return <div className="loading">Loading users...</div>;
-  }
-
   return (
     <div className="user-selection">
-      <h1>MarketFeed</h1>
+      <h1>MarketMind</h1>
       <p>Select a user to view personalized listings</p>
       <div className="user-buttons">
         {users.map((user) => (

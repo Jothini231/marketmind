@@ -1,41 +1,75 @@
 import { useState } from "react";
 import { FiEye, FiBookmark, FiPhone, FiCheck } from "react-icons/fi";
+import { BsBookmarkFill } from "react-icons/bs";
 import { createInteraction } from "../services/api";
 
-export default function ActionButtons({ userId, listingId }) {
-  const [clicked, setClicked] = useState({});
+export default function ActionButtons({
+  userId,
+  listingId,
+  isSaved,
+  onToggleSave,
+  onViewDetails,
+}) {
+  const [contacted, setContacted] = useState(false);
+  const [contactLoading, setContactLoading] = useState(false);
 
-  const handleAction = async (type) => {
+  const handleContact = async () => {
+    if (contacted || contactLoading) return;
+    setContactLoading(true);
     try {
-      await createInteraction({ userId, listingId, type });
-      setClicked((prev) => ({ ...prev, [type]: true }));
+      await createInteraction({ userId, listingId, type: "CONTACT" });
+      setContacted(true);
     } catch (err) {
-      console.error("Interaction failed:", err);
+      console.error("Failed to contact seller:", err);
+    } finally {
+      setContactLoading(false);
     }
   };
 
   return (
     <div className="action-buttons">
+      {onViewDetails && (
+        <button
+          type="button"
+          className="action-btn view"
+          onClick={() => onViewDetails(listingId)}
+          aria-label="View listing details"
+        >
+          <FiEye className="btn-icon" /> View
+        </button>
+      )}
+
       <button
-        className={`action-btn view ${clicked.VIEW ? "active" : ""}`}
-        onClick={() => handleAction("VIEW")}
+        type="button"
+        className={`action-btn bookmark-btn ${isSaved ? "saved" : ""}`}
+        onClick={() => onToggleSave && onToggleSave(listingId)}
+        aria-label={isSaved ? "Unsave listing" : "Save listing"}
+        aria-pressed={!!isSaved}
       >
-        {clicked.VIEW ? <FiCheck className="btn-icon" /> : <FiEye className="btn-icon" />}
-        {clicked.VIEW ? "Viewed" : "View"}
+        {isSaved ? (
+          <BsBookmarkFill className="btn-icon bookmark-icon-saved" />
+        ) : (
+          <FiBookmark className="btn-icon" />
+        )}
+        <span className="bookmark-text">{isSaved ? "Saved" : "Save"}</span>
       </button>
+
       <button
-        className={`action-btn save ${clicked.SAVE ? "active" : ""}`}
-        onClick={() => handleAction("SAVE")}
+        type="button"
+        className={`action-btn contact ${contacted ? "active" : ""}`}
+        onClick={handleContact}
+        disabled={contactLoading}
+        aria-label="Contact seller"
       >
-        {clicked.SAVE ? <FiCheck className="btn-icon" /> : <FiBookmark className="btn-icon" />}
-        {clicked.SAVE ? "Saved" : "Save"}
-      </button>
-      <button
-        className={`action-btn contact ${clicked.CONTACT ? "active" : ""}`}
-        onClick={() => handleAction("CONTACT")}
-      >
-        {clicked.CONTACT ? <FiCheck className="btn-icon" /> : <FiPhone className="btn-icon" />}
-        {clicked.CONTACT ? "Contacted" : "Contact"}
+        {contacted ? (
+          <>
+            <FiCheck className="btn-icon" /> Contacted
+          </>
+        ) : (
+          <>
+            <FiPhone className="btn-icon" /> Contact
+          </>
+        )}
       </button>
     </div>
   );

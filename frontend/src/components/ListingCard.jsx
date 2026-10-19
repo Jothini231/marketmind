@@ -2,22 +2,35 @@ import { useState, useEffect } from "react";
 import { getListingImage } from "../services/api";
 import ActionButtons from "./ActionButtons";
 
-export default function ListingCard({ listing, userId }) {
+export default function ListingCard({
+  listing,
+  userId,
+  isSaved,
+  onToggleSave,
+  onViewDetails,
+}) {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
     getListingImage(listing._id)
-      .then((data) => setImageUrl(data.imageUrl))
-      .catch(() => setImageUrl(null));
+      .then((data) => {
+        if (isMounted) setImageUrl(data.imageUrl);
+      })
+      .catch(() => {
+        if (isMounted) setImageUrl(null);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, [listing._id]);
 
-  const formatPrice = (price) => {
-    return `Rs. ${price.toLocaleString()}`;
-  };
+  const formatPrice = (price) => `Rs. ${price.toLocaleString()}`;
 
   return (
     <div className="listing-card">
-      <div className="card-image">
+      <div className="card-image" onClick={() => onViewDetails && onViewDetails(listing._id)} style={{ cursor: "pointer" }}>
         {imageUrl ? (
           <img src={imageUrl} alt={listing.title} />
         ) : (
@@ -28,7 +41,13 @@ export default function ListingCard({ listing, userId }) {
         <span className="category-badge">{listing.category}</span>
       </div>
       <div className="card-body">
-        <h3 className="card-title">{listing.title}</h3>
+        <h3
+          className="card-title"
+          onClick={() => onViewDetails && onViewDetails(listing._id)}
+          style={{ cursor: "pointer" }}
+        >
+          {listing.title}
+        </h3>
         <p className="card-price">{formatPrice(listing.price)}</p>
         <p className="card-location">📍 {listing.location}</p>
         {listing.attributes && (
@@ -57,6 +76,9 @@ export default function ListingCard({ listing, userId }) {
         <ActionButtons
           userId={userId}
           listingId={listing._id}
+          isSaved={isSaved}
+          onToggleSave={onToggleSave}
+          onViewDetails={onViewDetails}
         />
       </div>
     </div>

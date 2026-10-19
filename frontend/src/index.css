@@ -113,6 +113,12 @@ body {
   color: #2c3e50;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .current-user {
   font-size: 0.95rem;
   color: #666;
@@ -296,14 +302,124 @@ body {
   color: #3498db;
 }
 
-.action-btn.save.active {
-  background: #fef9e7;
-  border-color: #f39c12;
-  color: #f39c12;
+.action-btn.bookmark-btn.saved {
+  background: #eaf6ff;
+  border-color: #3498db;
+  color: #2980b9;
+}
+
+.bookmark-icon-saved {
+  color: #3498db;
 }
 
 .action-btn.contact.active {
   background: #eafaf1;
   border-color: #27ae60;
   color: #27ae60;
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2c3e50;
+  transition: all 0.2s;
+}
+
+.back-btn.icon-only {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.back-btn .back-icon {
+  font-size: 1.25rem;
+}
+
+.back-btn:hover {
+  background: #f0f0f0;
+  border-color: #3498db;
+  color: #3498db;
+}
+
+/* Detail Page */
+.detail-page {
+  max-width: 900px;
+}
+
+.detail-container {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.detail-image-box {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background: #eee;
+}
+
+.detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-placeholder {
+  font-size: 6rem;
+}
+
+.detail-info {
+  padding: 24px;
+}
+
+.detail-title {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.detail-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #27ae60;
+  margin-bottom: 8px;
+}
+
+.detail-attributes-box {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.detail-attributes-box h3 {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.detail-actions {
+  max-width: 400px;
+  margin-top: 24px;
 }
